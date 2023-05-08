@@ -23,13 +23,13 @@ public class Main {
         int green = color.getGreen();
         int blue = color.getBlue();
 
-        String binaryRed = Integer.toBinaryString(red);
-        String binaryGreen = Integer.toBinaryString(green);
-        String binaryBlue = Integer.toBinaryString(blue);
+        int binaryRed = Integer.parseInt(Integer.toBinaryString(red));
+        int binaryGreen = Integer.parseInt(Integer.toBinaryString(green));
+        int binaryBlue = Integer.parseInt(Integer.toBinaryString(blue));
 
-        String[] binaryRedArray = binaryRed.split("");
-        String[] binaryGreenArray = binaryGreen.split("");
-        String[] binaryBlueArray = binaryBlue.split("");
+        String fullWord = "hola#";
+        String[] fullWordArray = fullWord.split("");
+
 
         System.out.println("rojo: " +red);
         System.out.println("en binario es: " +binaryRed);
@@ -38,16 +38,35 @@ public class Main {
         System.out.println("azul: " +blue);
         System.out.println("en binario es: " +binaryRed);
 
-        char ch = 'a';
-        int ascii = ch;
-        String str = Integer.toBinaryString(ch);
-        System.out.println("la palabra a en hex es: " +ascii);
-        System.out.println("la palabra a en binario es: " +str);
+        String binaryArray = Integer.toBinaryString(Integer.parseInt(fullWordArray[0]));
+        String[] binaryCharArray = binaryArray.split("");
 
-        //separar el decimal en un array de varias weas
+        int charPosition = 0;
+        int[] colors = {binaryRed, binaryGreen, binaryBlue};
+        for (int i = 0; i < 3; i++) {
+            if((colors[i] % 10) != Integer.parseInt(binaryCharArray[charPosition])){
+                if((colors[i] % 10) == 1){
+                    colors[i]--;
+                }
+                else{
+                    colors[i]++;
+                }
+                charPosition++;
+            }
+        }
+        color = new Color(colors[0], colors[1], colors[2]);
+        image.setRGB(x, y, color.getRGB());
+        
+        if(charPosition > 7){
+            charPosition = 0;
+            //change position of the char to operate
+        }
 
-        String[] binaryCharArray = str.split("");
 
+        System.out.println(binaryRed);
+
+
+        /**
         binaryRedArray[binaryRedArray.length-1] = binaryCharArray[0];
 
 
