@@ -1,11 +1,13 @@
 import javax.imageio.ImageIO;
-import javax.imageio.ImageIO.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
+/**
+ * Esta clase lee una imagen y escribe un mensaje secreto en ella, modificando los valores RGB de un pixel.
+ */
 public class Main {
     public static void main(String[] args) throws IOException {
 
@@ -41,6 +43,9 @@ public class Main {
         String binaryArray = Integer.toBinaryString(Integer.parseInt(fullWordArray[0]));
         String[] binaryCharArray = binaryArray.split("");
 
+        /**
+         * Recorre los valores RGB y compara los bits menos significativos con los del mensaje secreto
+         **/
         int charPosition = 0;
         int[] colors = {binaryRed, binaryGreen, binaryBlue};
         for (int i = 0; i < 3; i++) {
@@ -54,6 +59,8 @@ public class Main {
                 charPosition++;
             }
         }
+
+        // Crea un objeto de tipo Color con los nuevos valores RGB modificados
         color = new Color(colors[0], colors[1], colors[2]);
         image.setRGB(x, y, color.getRGB());
         
