@@ -42,6 +42,9 @@ public class Main {
 
         String binaryArray = Integer.toBinaryString(Integer.parseInt(fullWordArray[0]));
         String[] binaryCharArray = binaryArray.split("");
+        
+        
+        bite[] bite = fullWord.getBites();
 
         /**
          * Recorre los valores RGB y compara los bits menos significativos con los del mensaje secreto
