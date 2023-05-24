@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Main {
@@ -27,10 +28,6 @@ public class Main {
         int binaryGreen = Integer.parseInt(Integer.toBinaryString(green));
         int binaryBlue = Integer.parseInt(Integer.toBinaryString(blue));
 
-        String fullWord = "hola#";
-        String[] fullWordArray = fullWord.split("");
-
-
         System.out.println("rojo: " +red);
         System.out.println("en binario es: " +binaryRed);
         System.out.println("verde: " +green);
@@ -40,7 +37,7 @@ public class Main {
 
 
         //convierte el input del usuario a un array de bytes por cada caracter
-        String inputWord = "hola";
+        String inputWord = "hola#";
         byte[] bytes = inputWord.getBytes();
 
         String[] inputWordBytesArray = new String[inputWord.length()];
@@ -50,6 +47,14 @@ public class Main {
             wordToByteIterator++;
         }
 
+        ArrayList<Integer> allBytesFromText = new ArrayList<>();
+        for (int i = 0; i < inputWord.length(); i++) {
+            String[] letterBytes = inputWordBytesArray[i].split("");
+            System.out.println(Arrays.toString(letterBytes));
+            for (int j = 0; j < letterBytes.length; j++) {
+                allBytesFromText.add(Integer.parseInt(letterBytes[j]));
+            }
+        }
 
         int charPosition = 0;
         int[] colors = {binaryRed, binaryGreen, binaryBlue};
@@ -64,8 +69,12 @@ public class Main {
                 charPosition++;
             }
         }
-        color = new Color(colors[0], colors[1], colors[2]);
+        int redBinaryToDecimal = Integer.parseInt(String.valueOf(colors[0]),2);
+        int greenBinaryToDecimal = Integer.parseInt(String.valueOf(colors[1]),2);
+        int blueBinaryToDecimal = Integer.parseInt(String.valueOf(colors[2]),2);
+        color = new Color(redBinaryToDecimal, greenBinaryToDecimal, blueBinaryToDecimal);
         image.setRGB(x, y, color.getRGB());
+
         
         if(charPosition > 7){
             charPosition = 0;
@@ -73,13 +82,7 @@ public class Main {
         }
 
 
-        System.out.println(binaryRed);
-
-
-
-        binaryRedArray[binaryRedArray.length-1] = binaryCharArray[0];
-
-
+        /**
         StringBuffer fullAscii = new StringBuffer();
         for (int i = 0; i < binaryRedArray.length; i++) {
             fullAscii.append(binaryRedArray[i]);
@@ -88,6 +91,8 @@ public class Main {
 
 
         System.out.println("en int el resultado es: " +converter);
+
+         */
 
         /**
 
