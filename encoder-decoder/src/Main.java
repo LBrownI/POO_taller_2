@@ -1,17 +1,15 @@
 import javax.imageio.ImageIO;
+import javax.imageio.ImageIO.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
-/**
- * Esta clase lee una imagen y escribe un mensaje secreto en ella, modificando los valores RGB de un pixel.
- */
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        File file = new File("C:\\Users\\alanb\\Desktop\\image.png");
+        File file = new File("C:\\Users\\alanb\\IdeaProjects\\encoder-decoder\\image\\image.png");
         BufferedImage image= ImageIO.read(file);
 
         int x = 0;
@@ -40,19 +38,23 @@ public class Main {
         System.out.println("azul: " +blue);
         System.out.println("en binario es: " +binaryRed);
 
-        String binaryArray = Integer.toBinaryString(Integer.parseInt(fullWordArray[0]));
-        String[] binaryCharArray = binaryArray.split("");
-        
-        
-        bite[] bite = fullWord.getBites();
 
-        /**
-         * Recorre los valores RGB y compara los bits menos significativos con los del mensaje secreto
-         **/
+        //convierte el input del usuario a un array de bytes por cada caracter
+        String inputWord = "hola";
+        byte[] bytes = inputWord.getBytes();
+
+        String[] inputWordBytesArray = new String[inputWord.length()];
+        int wordToByteIterator = 0;
+        for(int iterator : bytes){
+            inputWordBytesArray[wordToByteIterator] = Integer.toBinaryString(iterator);
+            wordToByteIterator++;
+        }
+
+
         int charPosition = 0;
         int[] colors = {binaryRed, binaryGreen, binaryBlue};
         for (int i = 0; i < 3; i++) {
-            if((colors[i] % 10) != Integer.parseInt(binaryCharArray[charPosition])){
+            if((colors[i] % 10) != Integer.parseInt(inputWordBytesArray[charPosition])){
                 if((colors[i] % 10) == 1){
                     colors[i]--;
                 }
@@ -62,8 +64,6 @@ public class Main {
                 charPosition++;
             }
         }
-
-        // Crea un objeto de tipo Color con los nuevos valores RGB modificados
         color = new Color(colors[0], colors[1], colors[2]);
         image.setRGB(x, y, color.getRGB());
         
@@ -76,7 +76,7 @@ public class Main {
         System.out.println(binaryRed);
 
 
-        /**
+
         binaryRedArray[binaryRedArray.length-1] = binaryCharArray[0];
 
 
