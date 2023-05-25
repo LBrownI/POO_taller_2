@@ -1,11 +1,8 @@
 import javax.imageio.ImageIO;
-import javax.imageio.ImageIO.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 
 public class Main {
@@ -20,8 +17,7 @@ public class Main {
         int letterBytePosition = 0;
         int charPosition = 0;
 
-        //convierte el input del usuario a un array de bytes por cada caracter
-        String inputText = "holas#";
+        String inputText = "holas$";
         char[] inputTextCharArray = inputText.toCharArray();
 
         String[] binaryTextWithLeadingZeros = new String[inputText.length()];
@@ -30,17 +26,7 @@ public class Main {
             binaryTextWithLeadingZeros[i] = String.format("%8s", binaryString).replace(' ', '0');
         }
 
-        /**
-        String[] inputWordBytesArray = new String[inputText.length()];
-        int wordToByteIterator = 0;
-        for (int iterator : bytes) {
-            inputWordBytesArray[wordToByteIterator] = Integer.toBinaryString(iterator);
-            wordToByteIterator++;
-        }
-         */
-
-
-        for (int y = 0; y < 1; y++) {           //CHANGE THE "1" OF THE FIRST FOR TO HEIGHT LATER!!!1!!11!!1!!!!
+        for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 int pixel = image.getRGB(x, y);
 
@@ -53,7 +39,6 @@ public class Main {
                 int binaryRed = Integer.parseInt(Integer.toBinaryString(red));
                 int binaryGreen = Integer.parseInt(Integer.toBinaryString(green));
                 int binaryBlue = Integer.parseInt(Integer.toBinaryString(blue));
-
 
                 int[] colors = {binaryRed, binaryGreen, binaryBlue};
                 for (int i = 0; i < 3; i++) {
@@ -83,10 +68,8 @@ public class Main {
                 image.setRGB(x, y, color.getRGB());
             }
         }
-        /**
          file = new File("modified_image.png");
          ImageIO.write(image, "png", file);
          System.out.println("Doners");
-         */
     }
 }
