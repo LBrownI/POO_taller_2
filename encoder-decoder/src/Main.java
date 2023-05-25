@@ -7,33 +7,38 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        File file = new File("C:\\Users\\alanb\\IdeaProjects\\encoder-decoder\\image\\image.png");
+        File file = new File("image.png");
         BufferedImage image = ImageIO.read(file);
 
         int width = image.getWidth();
         int height = image.getHeight();
 
-        int letterBytesLenght = 0;
         int letterBytePosition = 0;
         int charPosition = 0;
 
         //convierte el input del usuario a un array de bytes por cada caracter
-        String inputWord = "holas#";
-        byte[] bytes = inputWord.getBytes();
+        String inputText = "holas#";
+        char[] inputTextCharArray = inputText.toCharArray();
 
-        System.out.println("los bites son: " +bytes[0]);
+        String[] binaryTextWithLeadingZeros = new String[inputText.length()];
+        for (int i = 0; i < inputText.length(); i++) {
+            String binaryString = Integer.toBinaryString(inputTextCharArray[i]);
+            binaryTextWithLeadingZeros[i] = String.format("%8s", binaryString).replace(' ', '0');
+        }
 
-        String[] inputWordBytesArray = new String[inputWord.length()];
+        /**
+        String[] inputWordBytesArray = new String[inputText.length()];
         int wordToByteIterator = 0;
         for (int iterator : bytes) {
             inputWordBytesArray[wordToByteIterator] = Integer.toBinaryString(iterator);
             wordToByteIterator++;
         }
+         */
 
-        System.out.println("la letra h en binario es: " +inputWordBytesArray[0]);
 
         for (int y = 0; y < 1; y++) {           //CHANGE THE "1" OF THE FIRST FOR TO HEIGHT LATER!!!1!!11!!1!!!!
             for (int x = 0; x < width; x++) {
@@ -49,13 +54,13 @@ public class Main {
                 int binaryGreen = Integer.parseInt(Integer.toBinaryString(green));
                 int binaryBlue = Integer.parseInt(Integer.toBinaryString(blue));
 
+
                 int[] colors = {binaryRed, binaryGreen, binaryBlue};
                 for (int i = 0; i < 3; i++) {
-                    String[] letterBytes = inputWordBytesArray[letterBytePosition].split("");
-                    letterBytesLenght = letterBytes.length;
-                    if (charPosition > letterBytesLenght-1){
+                    String[] letterBytes = binaryTextWithLeadingZeros[letterBytePosition].split("");
+                    if (charPosition > 7){
                         charPosition = 0;
-                        if (letterBytePosition != inputWord.length()-1){
+                        if (letterBytePosition != inputText.length()-1){
                             letterBytePosition++;
                         }
                         else{
@@ -79,7 +84,7 @@ public class Main {
             }
         }
         /**
-         file = new File("C:\\Users\\alanb\\Desktop\\modified_image.png");
+         file = new File("modified_image.png");
          ImageIO.write(image, "png", file);
          System.out.println("Doners");
          */
