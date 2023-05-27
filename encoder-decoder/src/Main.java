@@ -8,7 +8,23 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        File file = new File("image.png");
+        //cambiar esto después
+        String encodeOrDecode = "encode";
+        String hiddenMessage = "holas";
+        String inputPhoto = "image.png";
+        String outputPhoto = "out.png";
+        /**
+        try{
+            encodeOrDecode = args[0];
+            hiddenMessage = args[1];
+            inputPhoto = args[2];
+            outputPhoto = args[3];
+        }catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("Pon todos los argumentos necesarios para que el programa ejecute correctamente");
+        }
+         */
+
+        File file = new File(inputPhoto);
         BufferedImage image = ImageIO.read(file);
 
         int width = image.getWidth();
@@ -17,11 +33,10 @@ public class Main {
         int letterBytePosition = 0;
         int charPosition = 0;
 
-        String inputText = "holas$";
-        char[] inputTextCharArray = inputText.toCharArray();
+        char[] inputTextCharArray = hiddenMessage.toCharArray();
 
-        String[] binaryTextWithLeadingZeros = new String[inputText.length()];
-        for (int i = 0; i < inputText.length(); i++) {
+        String[] binaryTextWithLeadingZeros = new String[hiddenMessage.length()];
+        for (int i = 0; i < hiddenMessage.length(); i++) {
             String binaryString = Integer.toBinaryString(inputTextCharArray[i]);
             binaryTextWithLeadingZeros[i] = String.format("%8s", binaryString).replace(' ', '0');
         }
@@ -45,7 +60,7 @@ public class Main {
                     String[] letterBytes = binaryTextWithLeadingZeros[letterBytePosition].split("");
                     if (charPosition > 7){
                         charPosition = 0;
-                        if (letterBytePosition != inputText.length()-1){
+                        if (letterBytePosition != hiddenMessage.length()-1){
                             letterBytePosition++;
                         }
                         else{
@@ -68,8 +83,8 @@ public class Main {
                 image.setRGB(x, y, color.getRGB());
             }
         }
-         file = new File("modified_image.png");
+         file = new File(outputPhoto);
          ImageIO.write(image, "png", file);
-         System.out.println("Doners");
+         System.out.println("Done!");
     }
 }
