@@ -14,7 +14,7 @@ public class Main {
             if (encodeOrDecode.equals("decode")) {
                 try {
                     outputPhoto = args[1];
-                    System.out.println("poner decodificador aqui");
+                    choosenOption.decode(outputPhoto);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Pon todos los argumentos necesarios para que el programa ejecute correctamente (decode 'out.png')");
                     System.exit(1);
