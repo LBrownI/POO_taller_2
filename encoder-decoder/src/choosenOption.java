@@ -3,6 +3,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class choosenOption {
@@ -15,18 +17,26 @@ public class choosenOption {
         int width = image.getWidth();
         int height = image.getHeight();
 
-        int letterBytePosition = 0;
-        int charPosition = 0;
+        int bitesIterator = 0;
 
+        hiddenMessage = hiddenMessage.concat("~");          //add a key to indicate the end of the hidden message
         char[] inputTextCharArray = hiddenMessage.toCharArray();
 
-        String[] binaryTextWithLeadingZeros = new String[hiddenMessage.length() + 1];
+        String[] binaryTextWithLeadingZeros = new String[hiddenMessage.length()];
         for (int i = 0; i < hiddenMessage.length(); i++) {
             String binaryString = Integer.toBinaryString(inputTextCharArray[i]);
             binaryTextWithLeadingZeros[i] = String.format("%8s", binaryString).replace(' ', '0');
         }
 
-        binaryTextWithLeadingZeros[hiddenMessage.length()] = "11000110";  //adds a key character to indicate the end of the message
+        ArrayList<String> bytesList = new ArrayList<>();
+        for (int i = 0; i < hiddenMessage.length(); i++) {
+            String[] splitBinaryLetter = binaryTextWithLeadingZeros[i].split("");
+            for (int j = 0; j < 8; j++) {
+                bytesList.add(splitBinaryLetter[j]);
+            }
+        }
+
+        boolean allBytesWereWritten = false;
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
@@ -43,32 +53,27 @@ public class choosenOption {
 
                 int[] colors = {binaryRed, binaryGreen, binaryBlue};
                 for (int i = 0; i < 3; i++) {
-                    String[] letterBytes = binaryTextWithLeadingZeros[letterBytePosition].split("");
-                    if (charPosition > 7) {
-                        charPosition = 0;
-                        if (letterBytePosition != hiddenMessage.length()) {
-                            letterBytePosition++;
-                        } else {
-                            file = new File(outputPhoto);
-                            ImageIO.write(image, "png", file);
-                            System.out.println("Done!");
-                            System.exit(0);
-                        }
+                    if(bitesIterator > bytesList.size()-1){
+                        allBytesWereWritten = true;
+                        break;
                     }
-                    if ((colors[i] % 10) != Integer.parseInt(letterBytes[charPosition])) {
-                        if ((colors[i] % 10) == 1) {
-                            colors[i]--;
-                        } else {
-                            colors[i]++;
-                        }
+                    if((colors[i]%10) != Integer.parseInt(bytesList.get(bitesIterator))){
+                        if((colors[i]%10) == 1){colors[i]--;}
+                        else{colors[i]++;}
                     }
-                    charPosition++;
+                    bitesIterator++;
                 }
                 int redBinaryToDecimal = Integer.parseInt(String.valueOf(colors[0]), 2);
                 int greenBinaryToDecimal = Integer.parseInt(String.valueOf(colors[1]), 2);
                 int blueBinaryToDecimal = Integer.parseInt(String.valueOf(colors[2]), 2);
                 color = new Color(redBinaryToDecimal, greenBinaryToDecimal, blueBinaryToDecimal);
                 image.setRGB(x, y, color.getRGB());
+                if (allBytesWereWritten){
+                    file = new File(outputPhoto);
+                    ImageIO.write(image, "png", file);
+                    System.out.println("Done!");
+                    System.exit(0);
+                }
             }
         }
     }
