@@ -98,6 +98,8 @@ public class choosenOption {
                 int green = color.getGreen();
                 int blue = color.getBlue();
 
+                ArrayList toDecimal = new ArrayList();
+
                 int binaryRed = Integer.parseInt(Integer.toBinaryString(red));
                 int binaryGreen = Integer.parseInt(Integer.toBinaryString(green));
                 int binaryBlue = Integer.parseInt(Integer.toBinaryString(blue));
