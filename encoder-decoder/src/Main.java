@@ -8,13 +8,13 @@ public class Main {
         String inputPhoto = "";
         String outputPhoto = "";
 
-        choosenOption choosenOption = new choosenOption();
+        choosenOption option = new choosenOption();
         try {
             encodeOrDecode = args[0];
             if (encodeOrDecode.equals("decode")) {
                 try {
                     outputPhoto = args[1];
-                    choosenOption.decode(outputPhoto);
+                    option.decode(outputPhoto);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Pon todos los argumentos necesarios para que el programa ejecute correctamente (decode 'out.png')");
                     System.exit(1);
@@ -25,7 +25,7 @@ public class Main {
                     hiddenMessage = args[1];
                     inputPhoto = args[2];
                     outputPhoto = args[3];
-                    choosenOption.encode(hiddenMessage, inputPhoto, outputPhoto);
+                    option.encode(hiddenMessage, inputPhoto, outputPhoto);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Pon todos los argumentos necesarios para que el programa ejecute correctamente (encode 'texto a ocultar' 'image.png' 'out.png')");
                     System.exit(1);
