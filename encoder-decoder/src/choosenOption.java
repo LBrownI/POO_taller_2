@@ -8,13 +8,7 @@ import java.util.Arrays;
 
 public class choosenOption {
 
-    public int width;
-    public int height;
-    public File file;
-    public BufferedImage image;
-
     /**
-     *
      * @param hiddenMessage el mensaje que el usuario quiere ocultar
      * @return una ArrayList con el mensaje oculto convertido a bits
      */
@@ -37,27 +31,14 @@ public class choosenOption {
         return bytesList;
     }
 
-    public void a(String image){
-        try {
-            this.file = new File(image);
-            this.image = ImageIO.read(file);
-            this.width = this.image.getWidth();
-            this.height = this.image.getHeight();
-        } catch (javax.imageio.IIOException e){
-            System.out.println("La foto no se encontró en el directorio src");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
     /**
-     *
+     * Esconde el mensaje del usuario en la imagen
      * @param hiddenMessage el mensaje que el usuario quiere ocultar
-     * @param inputPhoto la foto que
-     * @param outputPhoto
-     * @throws IOException
+     * @param inputPhoto la foto donde se quiere ocultar la foto
+     * @param outputPhoto la foto con el mensaje oculto
+     * @throws IOException arroja un error si el usuario especifica una imagen no existente
      */
     public void encode(String hiddenMessage, String inputPhoto, String outputPhoto) throws IOException {
-
         try{
             File file = new File(inputPhoto);
             BufferedImage image = ImageIO.read(file);
@@ -109,11 +90,19 @@ public class choosenOption {
                     }
                 }
             }
+            System.out.println("Tu mensaje es muy largo para la imagen seleccionada. Prueba acortando el mensaje o seleccionar " +
+                    "una foto de mayor resolución.");
+            System.exit(1);
         } catch (javax.imageio.IIOException e) {
             System.out.println("La foto no se encontró en el directorio src");
         }
     }
 
+    /**
+     * Revela el usuario escondido en la imagen
+     * @param outputPhoto imagen que se quiere decodificar
+     * @throws IOException arroja un error si el usuario especifica una imagen no existente
+     */
     public void decode(String outputPhoto) throws IOException {
         try{
             File file = new File(outputPhoto);
@@ -183,7 +172,8 @@ public class choosenOption {
                 }
             }
         } catch (javax.imageio.IIOException e) {
-            System.out.println("La foto no se encontró en el directorio src");
+            System.out.println("La foto no se encontró en el directorio src. Si el nombre de la foto tiene " +
+                    "espacios, se debe de poner la imagen entre comillas simples. Ejemplo: 'imagen con espacios.png'");
         }
     }
 }
