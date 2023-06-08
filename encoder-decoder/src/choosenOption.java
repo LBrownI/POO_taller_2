@@ -6,20 +6,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
 public class choosenOption {
-
-    public void encode(String hiddenMessage, String inputPhoto, String outputPhoto) throws IOException {
-
-        File file = new File(inputPhoto);
-        BufferedImage image = ImageIO.read(file);
-
-        int width = image.getWidth();
-        int height = image.getHeight();
-
-        int bitesIterator = 0;
-
-        hiddenMessage = hiddenMessage.concat("~");          //add a key to indicate the end of the hidden message
+    public static ArrayList<String> HiddenMessageToByteList(String hiddenMessage){
+        String initialSpecialCharacter = "~~";
+        hiddenMessage = initialSpecialCharacter.concat(hiddenMessage.concat("~~"));
         char[] inputTextCharArray = hiddenMessage.toCharArray();
 
         String[] binaryTextWithLeadingZeros = new String[hiddenMessage.length()];
@@ -31,10 +21,20 @@ public class choosenOption {
         ArrayList<String> bytesList = new ArrayList<>();
         for (int i = 0; i < hiddenMessage.length(); i++) {
             String[] splitBinaryLetter = binaryTextWithLeadingZeros[i].split("");
-            for (int j = 0; j < 8; j++) {
-                bytesList.add(splitBinaryLetter[j]);
-            }
+            bytesList.addAll(Arrays.asList(splitBinaryLetter).subList(0, 8));
         }
+        return bytesList;
+    }
+    public void encode(String hiddenMessage, String inputPhoto, String outputPhoto) throws IOException {
+
+        File file = new File(inputPhoto);
+        BufferedImage image = ImageIO.read(file);
+
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        int bitesIterator = 0;
+        ArrayList<String> bytesList = HiddenMessageToByteList(hiddenMessage);
 
         boolean allBytesWereWritten = false;
 
@@ -53,13 +53,16 @@ public class choosenOption {
 
                 int[] colors = {binaryRed, binaryGreen, binaryBlue};
                 for (int i = 0; i < 3; i++) {
-                    if(bitesIterator > bytesList.size()-1){
+                    if (bitesIterator > bytesList.size() - 1) {
                         allBytesWereWritten = true;
                         break;
                     }
-                    if((colors[i]%10) != Integer.parseInt(bytesList.get(bitesIterator))){
-                        if((colors[i]%10) == 1){colors[i]--;}
-                        else{colors[i]++;}
+                    if ((colors[i] % 10) != Integer.parseInt(bytesList.get(bitesIterator))) {
+                        if ((colors[i] % 10) == 1) {
+                            colors[i]--;
+                        } else {
+                            colors[i]++;
+                        }
                     }
                     bitesIterator++;
                 }
@@ -68,7 +71,7 @@ public class choosenOption {
                 int blueBinaryToDecimal = Integer.parseInt(String.valueOf(colors[2]), 2);
                 color = new Color(redBinaryToDecimal, greenBinaryToDecimal, blueBinaryToDecimal);
                 image.setRGB(x, y, color.getRGB());
-                if (allBytesWereWritten){
+                if (allBytesWereWritten) {
                     file = new File(outputPhoto);
                     ImageIO.write(image, "png", file);
                     System.out.println("Done!");
@@ -85,20 +88,20 @@ public class choosenOption {
         int width = image.getWidth();
         int height = image.getHeight();
 
-        int letterBytePosition = 0;
-        int charPosition = 0;
+        ArrayList<Integer> bitMerge = new ArrayList<>();
+        boolean saveHiddenMessage = false;
+        ArrayList<Character> hiddenMessageList = new ArrayList<>();
+        ArrayList<Character> TwoFirstDigits = new ArrayList<>();
+        boolean checkTwoFirstDigits = true;
 
-        for (int y = 0; y < 1; y++) {
-            for (int x = 0; x < 40; x++) {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
                 int pixel = image.getRGB(x, y);
-
                 Color color = new Color(pixel, true);
 
                 int red = color.getRed();
                 int green = color.getGreen();
                 int blue = color.getBlue();
-
-                ArrayList toDecimal = new ArrayList();
 
                 int binaryRed = Integer.parseInt(Integer.toBinaryString(red));
                 int binaryGreen = Integer.parseInt(Integer.toBinaryString(green));
@@ -106,7 +109,42 @@ public class choosenOption {
 
                 int[] colors = {binaryRed, binaryGreen, binaryBlue};
                 for (int i = 0; i < 3; i++) {
-                    System.out.print(colors[i]%10);
+                    bitMerge.add(colors[i] % 10);
+                    if (bitMerge.size() == 8) {
+                        int fromArrayToInt = 0;
+                        for (int j = 0; j < 8; j++) {
+                            fromArrayToInt = fromArrayToInt * 10 + bitMerge.get(j);
+                        }
+                        bitMerge.clear();
+                        int fromIntToDecimal = Integer.parseInt(String.valueOf(fromArrayToInt), 2);
+                        char fromDecimalToChar = (char) fromIntToDecimal;
+                        if(checkTwoFirstDigits){
+                            TwoFirstDigits.add(fromDecimalToChar);
+                        }
+                        if (saveHiddenMessage) {
+                            hiddenMessageList.add(fromDecimalToChar);
+                        }
+                        if (hiddenMessageList.size() > 0) {
+                            if ((String.valueOf(hiddenMessageList.get(hiddenMessageList.size() - 1))).equals("~") && (String.valueOf(hiddenMessageList.get(hiddenMessageList.size() - 2))).equals("~")) {
+                                String hiddenMessage = "";
+                                for (int j = 0; j < hiddenMessageList.size() - 2; j++) {
+                                    hiddenMessage = hiddenMessage.concat(String.valueOf(hiddenMessageList.get(j)));
+                                }
+                                System.out.println("El mensaje secreto es: " + hiddenMessage);
+                                System.exit(0);
+                            }
+                        }
+                        if(TwoFirstDigits.size()==2){
+                            if((String.valueOf(TwoFirstDigits.get(0))).equals("~") && (String.valueOf(TwoFirstDigits.get(1))).equals("~")){
+                                saveHiddenMessage = true;
+                                checkTwoFirstDigits = false;
+                            }
+                            else {
+                                System.out.println("No se encontró un mensaje oculto");
+                                System.exit(0);
+                            }
+                        }
+                    }
                 }
             }
         }
