@@ -12,7 +12,7 @@ Programa que utiliza técnicas de [Esteganografía](https://es.wikipedia.org/wik
 **5)** Luego colocar "javac encoder_decoder.java" para compilar el código.
 
 ## Modo de uso
-**-** Para **codificar** un mensaje al interior de de la imagen se ocupa *java encoder_decoder encode 'mensaje oculto' 'input.png' 'output.png'*
+**-** Para **codificar** un mensaje al interior de de la imagen se ocupa *java encoder_decoder encode 'mensaje oculto' 'input.png' 'output.png'* (**mensaje oculto** sería donde colocas tú mensaje, **input.png** lo reemplazas por el nombre de la imagen en donde ocultarás el mensaje y **output.png** se reemplaza por el nombre de la imagen nueva con el mensaje oculto).
 
 **-** Para **decodificar** un mensaje de una imagen se ocupa *java encoder_decoder decode 'output.png'*
 
