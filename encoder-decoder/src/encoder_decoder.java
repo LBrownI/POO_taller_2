@@ -1,8 +1,12 @@
-import java.io.IOException;
 /**
- * este programa oculta una imagen utilizando la técnica de Esteganografía.
+ * este programa oculta un texto en una imagen utilizando la técnica de Esteganografía.
  * Para mayor información, leer README.md
  */
+import java.io.IOException;
+/**
+* Verifica que los inputs ingresados por el usuario son adecuados según el tipo de elección (encode o decode). Si están bien, sigue con su ejecución.
+* En caso que no estén bien, maneja los errores.
+*/
 public class encoder_decoder {
 
     public static void main(String[] args) throws IOException {
