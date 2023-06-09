@@ -20,7 +20,8 @@ public class encoder_decoder {
                     outputPhoto = args[1];
                     option.decode(outputPhoto);
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Pon todos los argumentos necesarios para que el programa ejecute correctamente (decode 'out.png').");
+                    System.out.println("Pon todos los argumentos necesarios para que el programa ejecute " +
+                            "correctamente (decode 'out.png').");
                     System.exit(1);
                 }
             }
@@ -31,7 +32,8 @@ public class encoder_decoder {
                     outputPhoto = args[3];
                     option.encode(hiddenMessage, inputPhoto, outputPhoto);
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Pon todos los argumentos necesarios para que el programa ejecute correctamente (encode 'texto a ocultar' 'image.png' 'out.png').");
+                    System.out.println("Pon todos los argumentos necesarios para que el programa ejecute " +
+                            "correctamente (encode 'texto a ocultar' 'image.png' 'out.png').");
                     System.exit(1);
                 }
             }
