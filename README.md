@@ -1,7 +1,7 @@
 # POO_taller_2
 Programa que utiliza técnicas de [Esteganografía](https://es.wikipedia.org/wiki/Esteganograf%C3%ADa) para ocultar un mensaje al interior de una imagen.
 ## Setup
-**1)** Descargar carpeta encode-decode.
+**1)** Descargar carpeta encoder-decoder.
 
 **2)** Colocar la imagen (en la cual se quiere ocultar el mensaje) al interior de la carpeta "src".
 
