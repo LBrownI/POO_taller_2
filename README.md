@@ -14,6 +14,12 @@ Programa que utiliza técnicas de [Esteganografía](https://es.wikipedia.org/wik
 ## Modo de uso (Windows PowerShell o cmd)
 **-** Para **codificar** un mensaje al interior de de la imagen se ocupa *java encoder_decoder encode 'mensaje oculto' 'input.png' 'output.png'* (**mensaje oculto** es donde colocas tú mensaje, **input.png** lo reemplazas por el nombre de la imagen en donde ocultarás el mensaje y **output.png** se reemplaza por el nombre de la imagen nueva con el mensaje oculto).
 
-**-** Para **decodificar** un mensaje de una imagen se ocupa *java encoder_decoder decode 'output.png'* (**output.png** se reemplaza por el nombre de la imagen que tiene el mensaje oculto)
+**-** Para **decodificar** un mensaje de una imagen se ocupa *java encoder_decoder decode 'output.png'* (**output.png** se reemplaza por el nombre de la imagen que tiene el mensaje oculto).
 
 **(Asegurarse de colocar las comillas simples ' para que el programa pueda identificar espacios en su texto o nombre de la imagen)**
+## Extras (eng)
+Check the known issues at the [/issues](https://github.com/LBrownI/POO_taller_2/issues) tab.
+
+Built with [Intellij](https://www.jetbrains.com/idea/) and [Apache NetBeans](https://netbeans.apache.org/).
+
+Not tested for Linux or MacOS
