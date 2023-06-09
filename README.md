@@ -1,5 +1,5 @@
 # POO_taller_2
-Programa que utiliza técnicas de [Esteganografía](https://es.wikipedia.org/wiki/Esteganograf%C3%ADa)
+Programa que utiliza técnicas de [Esteganografía](https://es.wikipedia.org/wiki/Esteganograf%C3%ADa) para ocultar un mensaje al interior de una imagen. 
 ## Setup
 **1)** Descargar carpeta encode-decode.
 
@@ -16,4 +16,4 @@ Programa que utiliza técnicas de [Esteganografía](https://es.wikipedia.org/wik
 
 **-** Para **decodificar** un mensaje de una imagen se ocupa *java encoder_decoder decode 'output.png'*
 
-**(Asegurarse de colocar las comillas simples ' para que pueda identificar espacios en su texto o nombre de la imagen)**
+**(Asegurarse de colocar las comillas simples ' para que el programa pueda identificar espacios en su texto o nombre de la imagen)**
