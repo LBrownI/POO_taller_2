@@ -33,7 +33,7 @@ public class choosenOption {
     }
 
     /**
-     * Esconde el mensaje del usuario en la imagen
+     * Esconde el mensaje del usuario en la imagen recorriendo cada pixel, cambiando el LSB por el bit del caracter.
      * @param hiddenMessage el mensaje que el usuario quiere ocultar
      * @param inputPhoto la foto donde se quiere ocultar la foto
      * @param outputPhoto la foto con el mensaje oculto
@@ -101,7 +101,7 @@ public class choosenOption {
     }
 
     /**
-     * Revela al usuario el mensaje escondido en la imagen
+     * Revela al usuario el mensaje escondido en la imagen recorriendo cada pixel de la imagen, obteniendo su LSB y convirtiendolos a un char.
      * @param outputPhoto imagen que se quiere decodificar
      * @throws IOException arroja un error si el usuario especifica una imagen no existente
      */
