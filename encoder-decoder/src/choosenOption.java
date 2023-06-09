@@ -90,8 +90,9 @@ public class choosenOption {
                     }
                 }
             }
-            System.out.println("Tu mensaje es muy largo para la imagen seleccionada. Prueba acortando el mensaje o seleccionar " +
-                    "una foto de mayor resolución.");
+            System.out.println("Tu mensaje es muy largo para la imagen seleccionada. Prueba acortando el mensaje o " +
+                    "seleccionando una foto de mayor resolución.");
+
             System.exit(1);
         } catch (javax.imageio.IIOException e) {
             System.out.println("La foto no se encontró en el directorio src");
@@ -99,7 +100,7 @@ public class choosenOption {
     }
 
     /**
-     * Revela el usuario escondido en la imagen
+     * Revela al usuario el mensaje escondido en la imagen
      * @param outputPhoto imagen que se quiere decodificar
      * @throws IOException arroja un error si el usuario especifica una imagen no existente
      */
@@ -148,7 +149,9 @@ public class choosenOption {
                                 hiddenMessageList.add(fromDecimalToChar);
                             }
                             if (hiddenMessageList.size() > 0) {
-                                if ((String.valueOf(hiddenMessageList.get(hiddenMessageList.size() - 1))).equals("~") && (String.valueOf(hiddenMessageList.get(hiddenMessageList.size() - 2))).equals("~")) {
+                                if ((String.valueOf(hiddenMessageList.get(hiddenMessageList.size() - 1))).equals("~")
+                                        && (String.valueOf(hiddenMessageList.get(hiddenMessageList.size() -
+                                        2))).equals("~")) {
                                     String hiddenMessage = "";
                                     for (int j = 0; j < hiddenMessageList.size() - 2; j++) {
                                         hiddenMessage = hiddenMessage.concat(String.valueOf(hiddenMessageList.get(j)));
@@ -158,7 +161,8 @@ public class choosenOption {
                                 }
                             }
                             if(TwoFirstDigits.size()==2){
-                                if((String.valueOf(TwoFirstDigits.get(0))).equals("~") && (String.valueOf(TwoFirstDigits.get(1))).equals("~")){
+                                if((String.valueOf(TwoFirstDigits.get(0))).equals("~")
+                                        && (String.valueOf(TwoFirstDigits.get(1))).equals("~")){
                                     saveHiddenMessage = true;
                                     checkTwoFirstDigits = false;
                                 }
