@@ -4,6 +4,9 @@ Programa que utiliza técnicas de [Esteganografía](https://es.wikipedia.org/wik
 +**1)** Descargar carpeta encode-decode.
 +**2)** Colocar la imagen (en la cual se quiere ocultar el mensaje) al interior de la carpeta "src".
 +**3)** Apretar tecla "Windows" y buscar "Windows PowerShell" o "cmd".
+a__
+b__
+c
 +**4)** Escribir "cd" y después de un espacio colocar la dirección de la carpeta "src" y apretar tecla "Enter".
 +**5)** Luego colocar "javac encoder_decoder.java" para compilar el código.
 ## Modo de uso
