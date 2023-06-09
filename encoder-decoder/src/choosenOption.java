@@ -9,6 +9,7 @@ import java.util.Arrays;
 public class choosenOption {
 
     /**
+     * Convierte el mensaje ingresado a una lista con los bits de cada caracter del mensaje
      * @param hiddenMessage el mensaje que el usuario quiere ocultar
      * @return una ArrayList con el mensaje oculto convertido a bits
      */
